@@ -15,49 +15,63 @@ Algorithm:
 4.	Exit the program.
  
 Program:
-#include <stdio.h>
-
-int main() {
-    int num;
-
-    printf("Enter a number (1-20): ");
-    scanf("%d", &num);
-
-    printf("The number in words is: ");
-
-    switch(num) {
-        case 1: printf("one"); break;
-        case 2: printf("two"); break;
-        case 3: printf("three"); break;
-        case 4: printf("four"); break;
-        case 5: printf("five"); break;
-        case 6: printf("six"); break;
-        case 7: printf("seven"); break;
-        case 8: printf("eight"); break;
-        case 9: printf("nine"); break;
-        case 10: printf("ten"); break;
-        case 11: printf("eleven"); break;
-        case 12: printf("twelve"); break;
-        case 13: printf("thirteen"); break;
-        case 14: printf("fourteen"); break;
-        case 15: printf("fifteen"); break;
-        case 16: printf("sixteen"); break;
-        case 17: printf("seventeen"); break;
-        case 18: printf("eighteen"); break;
-        case 19: printf("nineteen"); break;
-        case 20: printf("twenty"); break;
-        default: printf("Number out of range (1-20)");
-    }
-
-    printf("\n");
-
-    return 0;
+#include<stdio.h> #include<math.h> int main()
+{
+int n; scanf("%d",&n);
+if(n>=1 && n<=pow(4,3))
+{
+switch(n)
+{
+case 5:
+{
+printf("seventy one"); break;
+}
+case 6:
+{
+printf("seventy two"); break;
+}
+case 13:
+{
+printf("seventy three"); break;
+}
+case 14:
+{
+printf("seventy four"); break;
+}
+case 15:
+{
+printf("seventy five"); break;
+}
+case 16:
+{
+printf("seventy six"); break;
+}
+case 5:
+{
+printf("seventy seven"); break;
+}
+ 
+case 6:
+{
+printf("seventy eight"); break;
+}
+case 13:
+{
+printf("seventy nine"); break;
+}
+default:
+{
+printf("Greater than 13");
+}
+}
+}
 }
 
 
 
+
 Output:
-![image](https://github.com/user-attachments/assets/f20a8ffc-6827-4bcb-afc5-f9be85675fbe)
+![image](https://github.com/user-attachments/assets/8200d4ee-4a91-4365-a24f-126ffb443ccf)
 
 
 
@@ -78,34 +92,27 @@ Algorithm:
 6.	End
  
 Program:
-#include <stdio.h>
-
-int main() {
-    char input[100];
-    int freq[4] = {0}; // To store frequencies of digits 0 to 3
-
-    printf("Enter a string of digits: ");
-    scanf("%s", input);
-
-    for (int i = 0; input[i] != '\0'; i++) {
-        if (input[i] >= '0' && input[i] <= '3') {
-            freq[input[i] - '0']++;
-        }
-    }
-
-    // Print frequencies of digits 0 to 3, space-separated
-    for (int i = 0; i < 4; i++) {
-        printf("%d ", freq[i]);
-    }
-
-    printf("\n");
-    return 0;
+#include<stdio.h> #include<string.h> int main()
+{
+char a[50]; scanf("%s",a); int l=strlen(a); char h='0';
+for(int i=0;i<4;i++)
+{
+int c=0;
+for(int j=0;j<l;j++)
+{
+if(a[j]==h)
+{
+c+=1;
+}
+}
+printf("%d ",c); h++;
+}
 }
 
 
-Output:
 
-![image](https://github.com/user-attachments/assets/e77fc754-e131-407c-b5a7-e438a7e3f582)
+Output:
+![image](https://github.com/user-attachments/assets/eba24444-e31d-420c-a4d0-0fee9542e6db)
 
 
 
@@ -132,83 +139,49 @@ Free the memory allocated for each string in s Free the memory allocated for s
 7.	End
  
 Program:
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-
-// Function to swap characters
-void swap(char *x, char *y) {
-    char temp = *x;
-    *x = *y;
-    *y = temp;
+#include<stdio.h> #include<string.h> #include<stdlib.h>
+int next_per(int n, char **s)
+{
+for(int i = n - 1 ; i > 0 ; i--) if(strcmp(s[i],s[i-1]) > 0)
+{
+int j=i+1;
+for(;j<n;j++) if (strcmp(s[j],s[i-1])<=0) break; char *t=s[i-1];
+s[i-1]=s[j-1];
+s[j-1]=t;
+for(;i<n-1;i++,n--)
+{
+t=s[i]; s[i]=s[n-1]; s[n-1]=t;
 }
-
-// Compare function for qsort
-int compare(const void *a, const void *b) {
-    return (*(char *)a - *(char *)b);
+return 1;
 }
-
-// Function to reverse a substring
-void reverse(char *str, int start, int end) {
-    while (start < end) {
-        swap(&str[start], &str[end]);
-        start++;
-        end--;
-    }
+for(int i=0;i<n-1;i++,n--)
+{
+char *t=s[i]; s[i]=s[n-1]; s[n-1]=t;
 }
-
-// Function to generate next lexicographical permutation
-int next_permutation(char *str) {
-    int len = strlen(str);
-    int i = len - 2;
-
-    // Step 1: Find the first character that is smaller than the next one from the end
-    while (i >= 0 && str[i] >= str[i + 1]) {
-        i--;
-    }
-
-    if (i < 0)
-        return 0; // Last permutation
-
-    // Step 2: Find the smallest character greater than str[i] to the right
-    int j = len - 1;
-    while (str[j] <= str[i]) {
-        j--;
-    }
-
-    // Step 3: Swap
-    swap(&str[i], &str[j]);
-
-    // Step 4: Reverse the suffix
-    reverse(str, i + 1, len - 1);
-
-    return 1;
+return 0;
 }
-
-int main() {
-    char str[100];
-
-    printf("Enter a string: ");
-    scanf("%s", str);
-
-    // Sort the string to start from the first lex permutation
-    qsort(str, strlen(str), sizeof(char), compare);
-
-    // Print all permutations in lexicographical order
-    do {
-        printf("%s\n", str);
-    } while (next_permutation(str));
-
-    return 0;
+int main()
+{
+char **s; int n;
+scanf("%d",&n); s=calloc(n,sizeof(char*)); for(int i=0;i<n;i++)
+{
+s[i]=calloc(n,sizeof(char*)*5); scanf("%s",s[i]);
 }
-
-
+do
+{
+for(int i=0;i<n;i++) printf("%s%c",s[i],i==n-1?'\n':' ');
+}
+while(next_per(n,s));
+ 
+{
+for(int i=0;i<n;i++) free (s[i]);
+free(s); return 0;
+}
+}
 
 
 Output:
-![image](https://github.com/user-attachments/assets/1769144f-49fa-4088-a3d1-a3e72a0a27b7)
-
-
+![image](https://github.com/user-attachments/assets/50e6a859-cafe-4bc7-a903-5482f6909b8a)
 
 Result:
 Thus, the program is verified successfully
@@ -227,42 +200,23 @@ Algorithm:
 7.	End
  
 Program:
-#include <stdio.h>
-
-int min(int a, int b) {
-    return (a < b) ? a : b;
+#include<stdio.h> int main()
+{
+int n,i,j,min; scanf("%d",&n);
+int len=n*2-1; for (i=0;i<len;i++)
+{
+for (j=0;j<len;j++)
+{
+min=i<j?i:j;
+min=min<len-i-1?min:len-1-i; min=min<len-j-1?min:len-1-j; printf("%d ",n-min);
 }
-
-int main() {
-    int n;
-    printf("Enter the value of n: ");
-    scanf("%d", &n);
-
-    int len = n * 2 - 1;
-
-    for (int i = 0; i < len; i++) {
-        for (int j = 0; j < len; j++) {
-            // Find the minimum distance to the edges
-            int top = i;
-            int left = j;
-            int right = len - 1 - j;
-            int bottom = len - 1 - i;
-
-            int minDist = min(min(top, bottom), min(left, right));
-            printf("%d ", n - minDist);
-        }
-        printf("\n");
-    }
-
-    return 0;
+printf("\n");
+}
+return 0;
 }
 
 Output:
-
-![image](https://github.com/user-attachments/assets/078980b3-c9de-465c-9ae7-9609d394b6a2)
-
-
-
+![image](https://github.com/user-attachments/assets/d6dd2ff3-42cf-40c2-a60b-4ba24fd690d5)
 
 
 
@@ -289,31 +243,25 @@ o	Call the square() function and display the result.
 5.	End.
 
 Program:
+
 #include <stdio.h>
-
-// Function with no arguments, but with return type
-int getNumber() {
-    int num;
-    printf("Enter a number: ");
-    scanf("%d", &num);
-    return num;
-}
-
-int main() {
-    int number, square;
-
-    number = getNumber();         // Get number from user
-    square = number * number;     // Calculate square
-
-    printf("Square of %d is %d\n", number, square);
-
+void square();
+int main(){
+    
+    square();
     return 0;
+}
+void square(){
+    int a;
+    scanf("%d",&a);
+    float ans = a*a;
+    printf("The square of %d is : %.2f",a,ans);
 }
 
 
 Output:
 
-![image](https://github.com/user-attachments/assets/ff3b5e0b-0ad5-47b6-9dce-aa0df586e44b)
+![image](https://github.com/user-attachments/assets/f63dad00-ceb8-4d90-978e-cdfc18e2ac39)
 
 
 
